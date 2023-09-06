@@ -1,0 +1,5 @@
+{
+    "sketch": "ControlEjeLineal_v1.ino",
+    "port": "COM11",
+    "board": "arduino:avr:uno"
+}
