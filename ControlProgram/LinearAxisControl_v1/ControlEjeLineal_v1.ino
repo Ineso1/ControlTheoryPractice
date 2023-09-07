@@ -5,7 +5,7 @@
 // Definición de constantes mecanicas
 const float MAX_DISTANCE_MM = 1000.0;       // Distancia máxima en milímetros
 const float PULSES_PER_REVOLUTION = 493.9; // Pulsos por revolución del encoder
-const float MM_PER_REVOLUTION = 2.0; 
+const float MM_PER_REVOLUTION = 8.0; 
 
 // Calcula el ángulo máximo en grados correspondiente a la distancia máxima
 const float MAX_ANGLE_DEGREES = (MAX_DISTANCE_MM / MM_PER_REVOLUTION) * 360.0;
@@ -21,6 +21,7 @@ const int encoderBPin = 3;
 const int potentiometerPin = A0;
 
 float angle_degrees = 0;
+long pulses = 0;
 
 PositionMotorControl motor(motorPin1, motorPin2, motorPin3, encoderAPin, encoderBPin, MAX_DISTANCE_MM, PULSES_PER_REVOLUTION, MM_PER_REVOLUTION);
 
@@ -39,7 +40,8 @@ void loop() {
       
     }
     else{
-      angle_degrees = String(aux).toFloat();
+      angle_degrees = PULSES_PER_REVOLUTION * String(aux).toFloat()* 0.9076 ;
+      pulses = angle_degrees / MM_PER_REVOLUTION ;
       Serial.print(angle_degrees);
       Serial.print(" -> ");
     }
@@ -47,10 +49,10 @@ void loop() {
   
   Serial.println(motor.getCurrentPos());
   Serial.print(" -> ");
-  Serial.println(angle_degrees);
+  Serial.println(pulses);
 
   // Establecer la posición objetivo del motor en pulsos
-  motor.setTargetPosition(angle_degrees);
+  motor.setTargetPosition(pulses);
 
   //Algoritmo de control
   motor.control();

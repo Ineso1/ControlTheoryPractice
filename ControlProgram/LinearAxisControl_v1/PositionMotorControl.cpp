@@ -49,7 +49,7 @@ void PositionMotorControl::control() {
 }
 
 // Set de posicion del motor
-void PositionMotorControl::setTargetPosition(int nPulses) {
+void PositionMotorControl::setTargetPosition(long nPulses) {
   targetPosition = nPulses;
 }
 

@@ -9,13 +9,13 @@ public:
   PositionMotorControl(int motorPin1, int motorPin2, int motorPin3, int encoderAPin, int encoderBPin, float maxDistanceMM, float pulsesPerRevolution, float mmPerRevolution);
   void init();
   void control();
-  void setTargetPosition(int position);
+  void setTargetPosition(long position);
   int getCurrentPos();
   void setCero();
 
 private:
 
-  int error;
+  long error;
 
   //Pines puente H
   int motorPin1;
@@ -27,8 +27,8 @@ private:
   int encoderBPin;
 
   // Variables para controlar la posición actual y deseada del motor
-  volatile int currentPosition;
-  volatile int targetPosition;
+  volatile long currentPosition;
+  volatile long targetPosition;
 
   // Variables para el control del motor
   int motorSpeed;
